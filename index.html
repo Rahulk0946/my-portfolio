@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul | Shopify Expert & Web Developer</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(40px); 
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #95bf47, #5e8e3e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-glass {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #5e8e3e; border-radius: 10px; }
+
+        .profile-glow {
+            box-shadow: 0 0 30px rgba(149, 191, 71, 0.2);
+        }
+
+        /* Prevent horizontal scroll from floating icons */
+        .hero-overflow-hidden {
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white overflow-x-hidden">
+
+    <div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80" style="display: none; opacity: 0;">
+        <div id="modal-content" class="bg-slate-800 border border-slate-700 p-8 md:p-12 rounded-3xl max-w-lg w-full relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white transition text-2xl">&times;</button>
+            <h2 class="text-3xl font-black mb-2 text-green-400">Get in Touch</h2>
+            <p class="text-gray-400 mb-8">Ready to start your next Shopify project? Reach out directly.</p>
+            <div class="space-y-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-green-400/10 rounded-full flex items-center justify-center text-green-400">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Name</p>
+                        <p class="text-lg font-medium">Rahul</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-green-400/10 rounded-full flex items-center justify-center text-green-400">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Email</p>
+                        <a href="mailto:rahul.k20002003@gmail.com" class="text-lg font-medium hover:text-green-400 transition">rahul.k20002003@gmail.com</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-green-400/10 rounded-full flex items-center justify-center text-green-400">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Mobile</p>
+                        <p class="text-lg font-medium">9566561699</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-slate-950 flex flex-col items-center justify-center space-y-8 text-2xl font-bold uppercase tracking-widest translate-x-full transition-transform duration-500">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-4xl">&times;</button>
+        <a href="#work" onclick="toggleMobileMenu()" class="nav-link">Projects</a>
+        <a href="#services" onclick="toggleMobileMenu()" class="nav-link">Services</a>
+        <button onclick="openModal(); toggleMobileMenu();" class="text-green-400">Hire Me</button>
+    </div>
+
+    <nav class="nav-glass fixed w-full z-50 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl md:text-2xl font-black tracking-tighter uppercase">
+            Rahul<span class="text-green-400">.</span>Dev
+        </div>
+        <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest items-center">
+            <a href="#work" class="nav-link hover:text-green-400 transition">Projects</a>
+            <a href="#services" class="nav-link hover:text-green-400 transition">Services</a>
+            <button onclick="openModal()" class="text-green-400 border border-green-400/30 px-4 py-2 rounded-full hover:bg-green-400 hover:text-slate-900 transition font-bold">Hire Me</button>
+        </div>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-green-400">
+            <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+    </nav>
+
+    <section class="hero-overflow-hidden min-h-screen flex flex-col justify-center items-center text-center px-6">
+        <div class="absolute inset-0 z-0">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-40 grayscale-[50%]">
+                <source src="\portfolio\images\Shopify_Code_Editing_Video_Generation.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-slate-900/60"></div>
+        </div>
+
+        <div class="absolute inset-0 pointer-events-none z-10">
+            <div class="float-icon absolute top-1/4 left-[10%] text-green-400/20" data-speed="2"><i data-lucide="shopping-bag" class="w-12 h-12"></i></div>
+            <div class="float-icon absolute top-1/3 right-[15%] text-green-400/10" data-speed="1.2"><i data-lucide="zap" class="w-16 h-16"></i></div>
+            <div class="float-icon absolute bottom-1/4 left-[15%] text-green-400/15" data-speed="1.8"><i data-lucide="shopping-cart" class="w-10 h-10"></i></div>
+            <div class="float-icon absolute bottom-1/3 right-[10%] text-green-400/20" data-speed="2.5"><i data-lucide="tag" class="w-14 h-14"></i></div>
+            <div class="float-icon absolute top-20 right-1/3 text-green-400/10" data-speed="1.5"><i data-lucide="layers" class="w-12 h-12"></i></div>
+        </div>
+
+        <div class="relative z-20 mt-20 flex flex-col items-center">
+            <div id="hero-profile" class="mb-8 relative">
+                <div class="absolute inset-0 bg-green-400 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+                <div class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-slate-800 overflow-hidden profile-glow">
+                    <img src="\portfolio\images\Gemini_Generated_Image_kec6qqkec6qqkec6.png" alt="Rahul" class="w-full h-42 object-cover">
+                </div>
+                <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-slate-900 rounded-full shadow-lg"></div>
+            </div>
+
+            <h1 id="hero-title" class="text-5xl md:text-8xl font-black mb-6 leading-tight">
+                Building the Future <br> of <span class="gradient-text">Shopify Commerce.</span>
+            </h1>
+            <p id="hero-sub" class="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 mx-auto">
+                Specializing in high-performance Liquid themes, custom Shopify apps, and seamless store migrations.
+            </p>
+            <div id="hero-cta" class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#work" class="nav-link bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-green-400 transition">View Portfolio</a>
+                <button onclick="openModal()" class="border border-slate-700 px-8 py-4 rounded-full font-bold hover:border-green-400 transition">Contact Me</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-6 md:px-20 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-sm font-bold text-green-400 uppercase tracking-[0.2em] mb-4 reveal">Services</h2>
+            <h3 class="text-4xl font-bold mb-16 reveal">Specialized Expertise</h3>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="reveal p-8 bg-slate-900 border border-slate-700 rounded-3xl hover:border-green-400 transition group">
+                    <div class="w-12 h-12 bg-green-400/10 text-green-400 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-400 group-hover:text-slate-900 transition">
+                        <i data-lucide="code-2"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Custom Theme Dev</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Unique, fast, and mobile-first Shopify themes built with Liquid and Bootstrap CSS.</p>
+                </div>
+                <div class="reveal p-8 bg-slate-900 border border-slate-700 rounded-3xl hover:border-green-400 transition group">
+                    <div class="w-12 h-12 bg-green-400/10 text-green-400 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-400 group-hover:text-slate-900 transition">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Shopify App Integration</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Extending store functionality with custom applications and third-party APIs.</p>
+                </div>
+                <div class="reveal p-8 bg-slate-900 border border-slate-700 rounded-3xl hover:border-green-400 transition group">
+                    <div class="w-12 h-12 bg-green-400/10 text-green-400 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-400 group-hover:text-slate-900 transition">
+                        <i data-lucide="gauge"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Speed Optimization</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Improving Core Web Vitals and PageSpeed scores for better conversion rates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="py-24 px-6 md:px-20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-sm font-bold text-green-400 uppercase tracking-[0.2em] mb-4 reveal">Recent Work</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal group">
+                    <a href="https://wdtvogify.myshopify.com/" target="_blank">
+                        <div class="relative overflow-hidden rounded-3xl bg-slate-800 mb-6">
+                            <img src="\portfolio\images\homepage-01.jpg" alt="Work" class="w-full opacity-60 group-hover:scale-105 transition duration-700">
+                        </div>
+                        <h4 class="text-2xl font-bold">Fashion Hub Plus</h4>
+                        <p class="text-gray-400 mb-4">Complete Shopify OS 3.0 implementation with custom blocks.</p>
+                        <div class="flex gap-3 text-xs font-mono text-green-400">
+                            <span>#Liquid</span> <span>#JavaScript</span> <span>#CSS</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="reveal group">
+                    <div class="relative overflow-hidden rounded-3xl bg-slate-800 mb-6">
+                        <img src="\portfolio\images\lilnest.png" alt="Work" class="w-full opacity-60 group-hover:scale-105 transition duration-700">
+                    </div>
+                    <h4 class="text-2xl font-bold">Kids Toys eCommerce</h4>
+                    <p class="text-gray-400 mb-4">Headless commerce solution using Shopify Hydrogen and Oxygen.</p>
+                    <div class="flex gap-3 text-xs font-mono text-green-400">
+                        <span>#Hydrogen</span> <span>#React</span> <span>#Tailwind</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 text-center">
+        <div class="reveal max-w-3xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-black mb-8">Ready to grow your <span class="text-green-400">sales?</span></h2>
+            <p class="text-gray-400 text-lg mb-12">I'm currently available for freelance projects. Let's discuss how I can help your business.</p>
+            <a href="mailto:rahul.k20002003@gmail.com" class="inline-block bg-green-400 text-slate-900 font-black px-12 py-5 rounded-full text-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(74,222,128,0.4)] transition-all">
+                Start a Conversation
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-slate-800 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 Rahul Dev. Built for the Shopify Ecosystem.</p>
+    </footer>
+
+    <script>
+    // Initialize Plugins
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    lucide.createIcons();
+
+    // Modal Functions
+    function openModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        modal.style.display = 'flex';
+        gsap.to(modal, { opacity: 1, duration: 0.3 });
+        gsap.fromTo(content, { scale: 0.8, y: 20, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.7)" });
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('contact-modal');
+        gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => { modal.style.display = 'none'; }});
+    }
+
+    window.onclick = (e) => { if (e.target.id == 'contact-modal') closeModal(); }
+
+    // Floating Icons Animation
+    gsap.utils.toArray(".float-icon").forEach((icon) => {
+        gsap.to(icon, {
+            y: "random(-40, 40)",
+            x: "random(-30, 30)",
+            rotation: "random(-20, 20)",
+            duration: "random(4, 6)",
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+    });
+
+    // Mouse Move Parallax
+    window.addEventListener("mousemove", (e) => {
+        const { clientX, clientY } = e;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        gsap.to(".float-icon", {
+            x: (i, el) => (clientX - centerX) * 0.03 * el.getAttribute("data-speed"),
+            y: (i, el) => (clientY - centerY) * 0.03 * el.getAttribute("data-speed"),
+            duration: 1.5,
+            ease: "power2.out"
+        });
+    });
+
+    // On Load Animations
+    window.addEventListener('load', () => {
+        const tl = gsap.timeline();
+        tl.from("#hero-profile", { scale: 0.5, opacity: 0, duration: 1, ease: "back.out(1.7)" })
+          .from("#hero-title", { y: 60, opacity: 0, duration: 1.2, ease: "power4.out" }, "-=0.6")
+          .from("#hero-sub", { y: 30, opacity: 0, duration: 0.8 }, "-=0.8")
+          .from("#hero-cta", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6");
+    });
+
+    // Reveal Logic
+    document.querySelectorAll(".reveal").forEach((el) => {
+        gsap.to(el, {
+            scrollTrigger: { trigger: el, start: "top 90%" },
+            opacity: 1, y: 0, duration: 1.2, ease: "power3.out"
+        });
+    });
+
+    // Smooth Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = link.getAttribute('href');
+            if (target.startsWith('#')) {
+                e.preventDefault();
+                gsap.to(window, { duration: 1.2, scrollTo: { y: target, offsetY: 80 }, ease: "power3.inOut" });
+            }
+        });
+    });
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('translate-x-full');
+        document.body.style.overflow = menu.classList.contains('translate-x-full') ? 'auto' : 'hidden';
+    }
+    </script>
+</body>
+</html>
